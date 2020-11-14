@@ -23,7 +23,7 @@ import java.util.*;
 
 /**
   * @Author gaopeng
-  * @Description //TODO 校验请求参数
+  * @Description //TODO 校验请求参数(校验工具)
   * @Date 9:35 2020/11/14
   * @param
   * @return
