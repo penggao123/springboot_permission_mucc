@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  * @Date 2020/11/14 12:53
  * @Version 1.0
  **/
-
+@Component
 public class ApplicationContextHelper {
 
     private static ApplicationContext applicationContext;
@@ -21,7 +21,7 @@ public class ApplicationContextHelper {
         applicationContext = context;
     }
 
-    public static <T> T popBean(Class<T> clazz){
+    public static <T> T popBean(Class<T> clazz) throws Exception{
         if (applicationContext == null) {
             return null;
         }
