@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+scan="true":该配置文件有修改，自动重新加载，默认为true
+scanPeriod="60 seconds"：配置文件是否有修改的时间间隔,只有当scan="true"才生效
+
+
+
+-->
+
+
+<configuration scan="true" scanPeriod="60 seconds">
+    <!--log的输出形式（可以存在多个）-->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] %logger - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!--设置日志文件的压缩以及归档-->
+    <!--<appender name="permission" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+        <!--&lt;!&ndash;日志的名称    ${}:指定文件的位置&ndash;&gt;-->
+        <!--<file>${catalina.home}/logs/permission.log</file>-->
+        <!--&lt;!&ndash;文件压缩的规则&ndash;&gt;-->
+        <!--<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+            <!--&lt;!&ndash;压缩后的文件名称&ndash;&gt;-->
+            <!--<FileNamePattern>${catalina.home}/logs/permission.%d{yyyy-MM-dd}.log.gz</FileNamePattern>-->
+        <!--</rollingPolicy>-->
+        <!--&lt;!&ndash;每一行日志展示的样子&ndash;&gt;-->
+        <!--<layout class="ch.qos.logback.classic.PatternLayout">-->
+            <!--<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] %logger - %msg%n</pattern>-->
+
+        <!--</layout>-->
+
+    <!--</appender>-->
+
+
+
+
+
+    <!--可以存在多个）-->
+    <!--<logger name="xxx" level="INFO">-->
+        <!--<appender-ref ref="permission"/>-->
+    <!--</logger>-->
+
+
+    <!--日志级别  trace < debug < info < warn < error-->
+
+    <!--直能有一个root-->
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+    </root>
+
+</configuration>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
