@@ -53,6 +53,21 @@ public class SysDept implements Serializable {
      */
     private String operateIp;
 
+    public SysDept() {
+    }
+
+    public SysDept(Integer id, String name, Integer parentId, String level, Integer seq, String remark, String operator, Date operateTime, String operateIp) {
+        this.id = id;
+        this.name = name;
+        this.parentId = parentId;
+        this.level = level;
+        this.seq = seq;
+        this.remark = remark;
+        this.operator = operator;
+        this.operateTime = operateTime;
+        this.operateIp = operateIp;
+    }
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {

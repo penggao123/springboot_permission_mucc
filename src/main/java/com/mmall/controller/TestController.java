@@ -1,24 +1,19 @@
 package com.mmall.controller;
 
 import com.mmall.common.JsonData;
-import com.mmall.dao.SysAclMapper;
 import com.mmall.dao.SysAclModuleMapper;
 import com.mmall.exception.ParamException;
 import com.mmall.model.SysAclModule;
 import com.mmall.param.TestVo;
-import com.mmall.utils.ApplicationContextHelper;
+import com.mmall.common.ApplicationContextHelper;
 import com.mmall.utils.BeanValidator;
 import com.mmall.utils.JsonMapper;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.collections.MapUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Map;
 
 /**
  * @ClassName TestController

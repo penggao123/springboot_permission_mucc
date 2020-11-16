@@ -1,4 +1,4 @@
-package com.mmall.utils;
+package com.mmall.common;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

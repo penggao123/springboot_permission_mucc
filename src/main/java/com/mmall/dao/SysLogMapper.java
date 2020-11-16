@@ -2,7 +2,9 @@ package com.mmall.dao;
 
 import com.mmall.model.SysLog;
 import com.mmall.model.SysLogWithBLOBs;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface SysLogMapper {
     int deleteByPrimaryKey(Integer id);
 

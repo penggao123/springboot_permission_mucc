@@ -21,7 +21,8 @@
     from sys_dept
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from sys_dept
     where id = #{id,jdbcType=INTEGER}
   </delete>
@@ -138,4 +139,11 @@
       operate_ip = #{operateIp,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+  <select id="getAllDept" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_dept
+  </select>
 </mapper>

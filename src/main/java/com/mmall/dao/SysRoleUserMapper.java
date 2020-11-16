@@ -1,7 +1,9 @@
 package com.mmall.dao;
 
 import com.mmall.model.SysRoleUser;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface SysRoleUserMapper {
     int deleteByPrimaryKey(Integer id);
 
