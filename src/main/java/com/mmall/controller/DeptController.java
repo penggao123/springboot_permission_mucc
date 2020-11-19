@@ -38,6 +38,7 @@ public class DeptController {
 //    @ResponseBody
     public ModelAndView page(){
         return new ModelAndView("dept");
+//        return "dept";
     }
 
 
