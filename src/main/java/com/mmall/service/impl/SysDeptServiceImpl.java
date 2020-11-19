@@ -106,7 +106,7 @@ public class SysDeptServiceImpl implements SysDeptService {
         after.setOperator("system-update");
         after.setOperateIp("127.0.0.1");
         after.setOperateTime(new Date());
-
+        updateWithChild(before, after);
     }
 
 

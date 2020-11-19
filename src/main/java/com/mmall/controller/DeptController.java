@@ -34,7 +34,7 @@ public class DeptController {
     private SysTreeService treeService;
 
 
-    @RequestMapping("/page.json")
+    @RequestMapping("/dept.page")
 //    @ResponseBody
     public ModelAndView page(){
         return new ModelAndView("dept");
@@ -52,7 +52,7 @@ public class DeptController {
     @ResponseBody
     @RequestMapping("/save.json")
     public JsonData save(DeptParam param) {
-
+        System.out.println(new Class[0]);
         int saveResult = deptService.save(param);
         if (saveResult == 1){//添加成功
             return JsonData.success();

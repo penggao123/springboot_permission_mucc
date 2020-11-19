@@ -1,8 +1,9 @@
 package com.mmall.param;
 
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -16,35 +17,18 @@ import javax.validation.constraints.NotNull;
 public class DeptParam {
 
 
-    /**
-     * 部门id
-     */
     private Integer id;
 
-    /**
-     * 部门名称
-     */
-    @NotBlank(message = "部门名称不能为空")
-    @Length(max = 20, min = 2,message = "名称字符长度应在2-20之间")
+    @NotBlank(message = "部门名称不可以为空")
+    @Length(max = 15, min = 2, message = "部门名称长度需要在2-15个字之间")
     private String name;
 
+    private Integer parentId = 0;
 
-    /**
-     * 上级部门id
-     */
-    private Integer parentId = 0 ;
-
-
-    /**
-     * 部门在当前层级下的顺序，由小到大
-     */
     @NotNull(message = "展示顺序不可以为空")
     private Integer seq;
 
-    /**
-     * 备注
-     */
-    @Length(max = 150, message = "备注的长度最大为150个字符")
+    @Length(max = 150, message = "备注的长度需要在150个字以内")
     private String remark;
 
 
