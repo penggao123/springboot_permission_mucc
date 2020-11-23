@@ -89,6 +89,12 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
 
+    @Override
+    public SysUser findByKeyword(String keyword) {
+        return userMapper.findByKeyword(keyword);
+    }
+
+
     /**
      * 校验email是否已被占用
      * @param email

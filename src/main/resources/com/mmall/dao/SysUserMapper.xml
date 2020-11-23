@@ -24,6 +24,7 @@
     from sys_user
     where id = #{id,jdbcType=INTEGER}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from sys_user
     where id = #{id,jdbcType=INTEGER}
@@ -161,4 +162,11 @@
       operate_ip = #{operateIp,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+<!--根据用户名或密码查询-->
+  <select id="findByKeyword" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from sys_user
+    where telephone = #{keyword}
+    or mail =  #{keyword}
+  </select>
 </mapper>
