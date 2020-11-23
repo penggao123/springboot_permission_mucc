@@ -23,7 +23,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/sys/dept")
-public class DeptController {
+public class SysDeptController {
 
 
     @Autowired

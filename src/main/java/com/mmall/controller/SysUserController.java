@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequestMapping("/sys/user")
-public class UserController {
+public class SysUserController {
 
     @Autowired
     private SysUserService userService;
