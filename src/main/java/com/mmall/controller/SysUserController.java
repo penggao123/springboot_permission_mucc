@@ -5,9 +5,12 @@ import com.mmall.common.JsonData;
 import com.mmall.param.UserParam;
 import com.mmall.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequestMapping("/sys/user")
+@Controller
 public class SysUserController {
 
     @Autowired
