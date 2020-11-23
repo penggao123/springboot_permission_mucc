@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>部门管理</title>
-    <jsp:include page="../../common/backend_common.jsp"/>
+    <jsp:include page="../../static/common/backend_common.jsp"/>
 <%--    <jsp:include page="/common/page.jsp"/>--%>
 
 </head>
@@ -208,7 +208,7 @@
 
         function loadDeptTree() {
             $.ajax({
-                url: "/sys/dept/tree.json",
+                url: "/permission/sys/dept/tree.json",
                 success : function (result) {
                     if (result.ret) {
                         deptList = result.data;
@@ -254,7 +254,7 @@
                 var deptName = $(this).attr("data-name");
                 if (confirm("确定要删除部门[" + deptName + "]吗?")) {
                     $.ajax({
-                        url: "/sys/dept/delete.json",
+                        url: "/permission/sys/dept/delete.json",
                         data: {
                             id: deptId
                         },
