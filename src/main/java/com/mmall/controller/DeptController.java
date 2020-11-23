@@ -52,7 +52,6 @@ public class DeptController {
     @ResponseBody
     @RequestMapping("/save.json")
     public JsonData save(DeptParam param) {
-        System.out.println(new Class[0]);
         int saveResult = deptService.save(param);
         if (saveResult == 1){//添加成功
             return JsonData.success();

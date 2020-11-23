@@ -10,6 +10,9 @@ import javax.validation.constraints.NotNull;
 public class UserParam {
 
 
+    private Integer id;
+
+
     @NotBlank(message = "用户名不能为空")
     @Length(min = 2,max = 50,message = "用户名长度在2-50个字符")
     private String username;
@@ -95,10 +98,19 @@ public class UserParam {
         this.remark = remark;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "UserParam{" +
-                "username='" + username + '\'' +
+                "id=" + id +
+                ", username='" + username + '\'' +
                 ", telephone='" + telephone + '\'' +
                 ", mail='" + mail + '\'' +
                 ", deptId=" + deptId +
