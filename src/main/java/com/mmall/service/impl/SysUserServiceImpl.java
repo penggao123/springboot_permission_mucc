@@ -97,12 +97,12 @@ public class SysUserServiceImpl implements SysUserService {
 
     /**
      * 校验email是否已被占用
-     * @param email
+     * @param mail
      * @param userId
      * @return
      */
-    private boolean  checkEmailExits(String email, Integer userId){
-        return false;
+    private boolean  checkEmailExits(String mail, Integer userId){
+        return userMapper.countByMail(mail, userId) > 0;
     }
 
     /**
@@ -110,6 +110,6 @@ public class SysUserServiceImpl implements SysUserService {
      * @return
      */
     private boolean checkTelephoneExits(String telePhone, Integer userId){
-        return false;
+        return userMapper.countByTelephone(telePhone, userId) > 0;
     }
 }

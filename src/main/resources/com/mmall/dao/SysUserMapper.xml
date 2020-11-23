@@ -169,4 +169,25 @@
     where telephone = #{keyword}
     or mail =  #{keyword}
   </select>
+
+  <!--查询该邮箱是否已经被占用-->
+  <select id="countByMail" resultType="java.lang.Integer" parameterType="map">
+    SELECT  count(1)
+    FROM sys_user
+    where mail = #{mail}
+    <if test="userId != null">
+      and id != #{userId}
+    </if>
+  </select>
+
+
+<!--查询该手机号是否已经被占用-->
+  <select id="countByTelephone" resultType="java.lang.Integer" parameterType="map">
+    SELECT  count(1)
+    FROM sys_user
+    where telephone = #{telePhone}
+    <if test="userId != null">
+      and id != #{userId}
+    </if>
+  </select>
 </mapper>
