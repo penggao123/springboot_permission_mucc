@@ -84,4 +84,11 @@ public class DeptController {
         deptService.update(param);
         return JsonData.success();
     }
+
+
+    @ResponseBody
+    @RequestMapping("/test")
+    public String test(){
+        return "hello";
+    }
 }
