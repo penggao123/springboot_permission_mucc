@@ -1,6 +1,9 @@
 package com.mmall.service.impl;
 
 import com.google.common.base.Preconditions;
+import com.mmall.beans.PageQuery;
+import com.mmall.beans.PageResult;
+import com.mmall.common.RequestHolder;
 import com.mmall.dao.SysUserMapper;
 import com.mmall.exception.ParamException;
 import com.mmall.model.SysUser;
@@ -16,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.awt.geom.FlatteningPathIterator;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @ClassName SysUserServiceImpl
@@ -52,7 +56,7 @@ public class SysUserServiceImpl implements SysUserService {
         user.setTelephone(param.getTelephone());
         user.setRemark(param.getRemark());
         user.setStatus(param.getStatus());
-        user.setOperator("system");
+        user.setOperator(RequestHolder.getCurrentUser().getUsername());
         user.setOperateIp("127.0.0.1");
         user.setOperateTime(new Date());
         user.setPassword(MD5Utils.encrypt(password));
@@ -85,6 +89,9 @@ public class SysUserServiceImpl implements SysUserService {
         user.setRemark(param.getRemark());
         user.setStatus(param.getStatus());
         user.setId(param.getId());
+        user.setOperator(RequestHolder.getCurrentUser().getUsername());
+        user.setOperateIp("127.0.0.1");
+        user.setOperateTime(new Date());
         return userMapper.updateByPrimaryKeySelective(user);
     }
 
@@ -111,5 +118,31 @@ public class SysUserServiceImpl implements SysUserService {
      */
     private boolean checkTelephoneExits(String telePhone, Integer userId){
         return userMapper.countByTelephone(telePhone, userId) > 0;
+    }
+
+
+    /**
+     * 获取部门下的人员
+     * @param deptId
+     * @param pageQuery
+     * @return
+     */
+    @Override
+    public PageResult<SysUser> getPageByDeptId(int deptId, PageQuery pageQuery) {
+        BeanValidator.check(pageQuery);
+        int count = 0;
+        //查询该部门下是否有人员
+        count = userMapper.countbyDeptId(deptId);
+
+        if (count > 0) {//获取列表
+            //查询人员信息
+            List<SysUser> list = userMapper.getPageByDeptId(deptId, pageQuery);
+            PageResult<SysUser> resultList = new PageResult<>();
+            resultList.setData(list);
+            resultList.setTotal(count);
+            return resultList;
+        }
+
+        return new PageResult<>();
     }
 }

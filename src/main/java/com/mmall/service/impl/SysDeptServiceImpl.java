@@ -1,6 +1,7 @@
 package com.mmall.service.impl;
 
 import com.google.common.base.Preconditions;
+import com.mmall.common.RequestHolder;
 import com.mmall.dao.SysAclMapper;
 import com.mmall.dao.SysDeptMapper;
 import com.mmall.exception.ParamException;
@@ -60,7 +61,7 @@ public class SysDeptServiceImpl implements SysDeptService {
         //上一级的level
         String parentLevel = this.getParentLevel(param.getParentId());//上一级id
         dept.setLevel(LevelUtils.calculateLevel(parentLevel,param.getParentId() ));
-        dept.setOperator("system");
+        dept.setOperator(RequestHolder.getCurrentUser().getUsername());
         dept.setOperateIp("127.0.0.1");
         dept.setOperateTime(new Date());
         return deptMapper.insertSelective(dept);
@@ -103,7 +104,7 @@ public class SysDeptServiceImpl implements SysDeptService {
         after.setRemark(param.getRemark());
         after.setId(param.getId());
         after.setLevel(LevelUtils.calculateLevel(getParentLevel(param.getParentId()), param.getParentId()));
-        after.setOperator("system-update");
+        after.setOperator(RequestHolder.getCurrentUser().getUsername());
         after.setOperateIp("127.0.0.1");
         after.setOperateTime(new Date());
         updateWithChild(before, after);

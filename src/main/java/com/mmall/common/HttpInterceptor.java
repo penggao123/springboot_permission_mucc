@@ -52,7 +52,7 @@ public class HttpInterceptor extends HandlerInterceptorAdapter{
         long startTime = (long) request.getAttribute(START_TIME);
         long endTime = System.currentTimeMillis();
         logger.info("request finished. url:{}, cost:{}", url,endTime - startTime);
-
+        removeThreadLocalInfo();
     }
 
     /**
@@ -69,5 +69,14 @@ public class HttpInterceptor extends HandlerInterceptorAdapter{
         long startTime = (long) request.getAttribute(START_TIME);
         long endTime = System.currentTimeMillis();
         logger.info("request completed. url:{}, cost:{}", url, endTime - startTime);
+        removeThreadLocalInfo();
+    }
+
+
+    /**
+     * 使用ThreadLocal移除信息
+     */
+    public void removeThreadLocalInfo() {
+        RequestHolder.remove();
     }
 }

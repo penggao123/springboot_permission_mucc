@@ -190,4 +190,18 @@
       and id != #{userId}
     </if>
   </select>
+<!--  根据部门查询该人员的数量-->
+    <select id="countbyDeptId" resultType="int">
+      select count(1)
+      from sys_user
+      where dept_id = #{deptId}
+    </select>
+<!--  查询该部门下所有人员-->
+  <select id="getPageByDeptId" parameterType="map" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from sys_user
+    where dept_id = #{deptId}
+    order by username asc
+    limit #{page.offset}, #{page.pageSize}
+  </select>
 </mapper>

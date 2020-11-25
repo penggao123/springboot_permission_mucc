@@ -34,17 +34,22 @@ public class SpringExceptionResolver implements HandlerExceptionResolver{
         if (url.endsWith(".json")){
             if (ex instanceof PerssionException || ex instanceof ParamException){
                 JsonData result = JsonData.fail(ex.getMessage());
+                System.out.println(ex);
                 mv = new ModelAndView("jsonView",result.toMap());
             }else {
                 JsonData result = JsonData.fail(defaultMsg);
+                System.out.println(ex);
                 mv = new ModelAndView("jsonView", result.toMap());
             }
 
         }else if (url.endsWith(".page")){//所有请求page页面，都使用.page结尾
             JsonData result = JsonData.fail(defaultMsg);
+            System.out.println(ex);
             mv = new ModelAndView("exception", result.toMap());
+
         }else {
             JsonData result = JsonData.fail(defaultMsg);
+            System.out.println(ex);
             mv = new ModelAndView("jsonView",result.toMap());
         }
 
