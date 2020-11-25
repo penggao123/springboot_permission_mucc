@@ -1,4 +1,4 @@
-<%@ page import="com.mmall.common.RequestHolder" %>
+<%--<%@ page import="com.mmall.common.RequestHolder" %>--%>
 <%@ page import="com.mmall.model.SysUser" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
@@ -179,12 +179,12 @@
 <!-- basic scripts -->
 
 <!--[if !IE]> -->
-<script src="../static/assets/js/jquery-2.1.0.min.js"></script>
+<script src="../../static/assets/js/jquery-2.1.0.min.js"></script>
 
 <!-- <![endif]-->
 
 <!--[if IE]>
-<script src="../static/assets/js/jquery-1.11.0.min.js"></script>
+<script src="../../static/assets/js/jquery-1.11.0.min.js"></script>
 <![endif]-->
 
 <!--[if !IE]> -->
@@ -205,19 +205,19 @@
 <!-- page specific plugin scripts -->
 
 <!--[if lte IE 8]>
-<script src="/assets/js/excanvas.min.js"></script>
+<script src="../../static/assets/js/excanvas.min.js"></script>
 <![endif]-->
-<script src="../static/assets/js/jquery-ui.custom.min.js"></script>
-<script src="../static/assets/js/jquery.ui.touch-punch.min.js"></script>
-<script src="../static/assets/js/jquery.easypiechart.min.js"></script>
-<script src="../static/assets/js/jquery.sparkline.min.js"></script>
-<script src="../static/assets/js/flot/jquery.flot.min.js"></script>
-<script src="../static/assets/js/flot/jquery.flot.pie.min.js"></script>
-<script src="../static/assets/js/flot/jquery.flot.resize.min.js"></script>
+<script src="../../static/assets/js/jquery-ui.custom.min.js"></script>
+<script src="../../static/assets/js/jquery.ui.touch-punch.min.js"></script>
+<script src="../../static/assets/js/jquery.easypiechart.min.js"></script>
+<script src="../../static/assets/js/jquery.sparkline.min.js"></script>
+<script src="../../static/assets/js/flot/jquery.flot.min.js"></script>
+<script src="../../static/assets/js/flot/jquery.flot.pie.min.js"></script>
+<script src="../../static/assets/js/flot/jquery.flot.resize.min.js"></script>
 
 <!-- ace scripts -->
-<script src="../static/assets/js/ace-elements.min.js"></script>
-<script src="../static/assets/js/ace.min.js"></script>
+<script src="../../static/assets/js/ace-elements.min.js"></script>
+<script src="../../static/assets/js/ace.min.js"></script>
 
 <script>
 

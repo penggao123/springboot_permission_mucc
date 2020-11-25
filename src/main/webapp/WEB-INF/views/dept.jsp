@@ -208,7 +208,7 @@
 
         function loadDeptTree() {
             $.ajax({
-                url: "/permission/sys/dept/tree.json",
+                url: "/sys/dept/tree.json",
                 success : function (result) {
                     if (result.ret) {
                         deptList = result.data;
@@ -254,7 +254,7 @@
                 var deptName = $(this).attr("data-name");
                 if (confirm("确定要删除部门[" + deptName + "]吗?")) {
                     $.ajax({
-                        url: "/permission/sys/dept/delete.json",
+                        url: "/sys/dept/delete.json",
                         data: {
                             id: deptId
                         },

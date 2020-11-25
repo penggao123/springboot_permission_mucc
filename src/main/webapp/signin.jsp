@@ -28,13 +28,13 @@
     <link href="static/css/signin.css" rel="stylesheet">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../static/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="../../static/js/ie-emulation-modes-warning.js"></script>
+    <!--[if lt IE 9]><script src="static/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="static/js/ie-emulation-modes-warning.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-    <script src="../../static/js/html5shiv.min.js"></script>
-    <script src="../../static/js/respond.min.js"></script>
+    <script src="./static/js/html5shiv.min.js"></script>
+    <script src="static/js/respond.min.js"></script>
     <![endif]-->
 </head>
 
@@ -47,12 +47,12 @@
         <input type="text" id="inputEmail" class="form-control" placeholder="Email/Telephone" name="username" required autofocus value="${username}">
         <label for="inputPassword" class="sr-only">密码</label>
         <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required >
-        <div class="checkbox" style="color: red;">${error}</div>
+        <div class="checkbox" style="color: #ff0000;">${error}</div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">登 陆</button>
     </form>
 </div>
 
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="../../static/js/ie10-viewport-bug-workaround.js"></script>
+<script src="static/js/ie10-viewport-bug-workaround.js"></script>
 </body>
 </html>

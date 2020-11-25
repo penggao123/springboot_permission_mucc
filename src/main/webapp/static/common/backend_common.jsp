@@ -9,39 +9,39 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 <!-- bootstrap & fontawesome -->
-<link rel="stylesheet" href="/permission/static/assets/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="../../static/assets/css/bootstrap.min.css"/>
 <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"/>
 <!-- page specific plugin styles -->
 <!-- text fonts -->
-<link rel="stylesheet" href="/permission/static/assets/css/google-fonts.css"/>
+<link rel="stylesheet" href="../../static/assets/css/google-fonts.css"/>
 <!-- ace styles -->
-<link rel="stylesheet" href="/permission/static/assets/css/ace.min.css"/>
+<link rel="stylesheet" href="../../static/assets/css/ace.min.css"/>
 <!--[if lte IE 9]>
-<link rel="stylesheet" href="/assets/css/ace-part2.min.css"/>
+<link rel="stylesheet" href="../../static/assets/css/ace-part2.min.css"/>
 <![endif]-->
-<link rel="stylesheet" href="/permission/static/assets/css/ace-skins.min.css"/>
-<link rel="stylesheet" href="/permission/static/assets/css/ace-rtl.min.css"/>
-<link rel="stylesheet" href="/permission/static/assets/css/jquery.gritter.css" />
-<link rel="stylesheet" href="/permission/static/assets/css/jquery-ui.min.css" />
-<link rel="stylesheet" href="/permission/static/assets/css/chosen.css" />
+<link rel="stylesheet" href="../../static/assets/css/ace-skins.min.css"/>
+<link rel="stylesheet" href="../../static/assets/css/ace-rtl.min.css"/>
+<link rel="stylesheet" href="../../static/assets/css/jquery.gritter.css" />
+<link rel="stylesheet" href="../../static/assets/css/jquery-ui.min.css" />
+<link rel="stylesheet" href="../../static/assets/css/chosen.css" />
 <!--[if lte IE 9]>
-<link rel="stylesheet" href="/permission/assets/css/ace-ie.min.css"/>
+<link rel="stylesheet" href="../../static/assets/css/ace-ie.min.css"/>
 <![endif]-->
 <!-- inline styles related to this page -->
 <!-- ace settings handler -->
-<script src="/permission/static/assets/js/ace-extra.min.js"></script>
+<script src="../../static/assets/js/ace-extra.min.js"></script>
 <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!--[if lte IE 8]>
-<script src="/permission/static/js/html5shiv.min.js"></script>
-<script src="/permission/static/js/respond.min.js"></script>
+<script src="../../static/js/html5shiv.min.js"></script>
+<script src="/static/js/respond.min.js"></script>
 <![endif]-->
 
-<script src="/permission/static/js/jquery-1.9.1.min.js"></script>
-<script src="/permission/static/assets/js/jquery-ui.min.js"></script>
-<script src="/permission/static/assets/js/jquery.gritter.min.js"></script>
-<script src="/permission/static/assets/js/chosen.jquery.min.js"></script>
+<script src="../../static/js/jquery-1.9.1.min.js"></script>
+<script src="../../static/assets/js/jquery-ui.min.js"></script>
+<script src="../../static/assets/js/jquery.gritter.min.js"></script>
+<script src="../../static/assets/js/chosen.jquery.min.js"></script>
 <script src="http://cdn.bootcss.com/mustache.js/2.2.1/mustache.js"></script>
-<script src="/permission/static/bootstrap3.3.5/js/bootstrap.min.js"></script>
+<script src="../../static/bootstrap3.3.5/js/bootstrap.min.js"></script>
 
 <script type="text/javascript">
     // 展示提示信息

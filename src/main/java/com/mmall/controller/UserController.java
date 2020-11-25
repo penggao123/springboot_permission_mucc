@@ -35,7 +35,7 @@ public class UserController {
             errorMsg = "密码不能为空!";
         }else if (sysUser == null) {
             errorMsg = "该用户系统不存在!";
-        }else if (sysUser.getPassword().equals(MD5Utils.encrypt(password))){
+        }else if (!sysUser.getPassword().equals(MD5Utils.encrypt(password))){
             errorMsg = "用户名或密码错误!";
         }else if (sysUser.getStatus() != 1) {
             errorMsg = "该账号已被冻结，请联系管理员!";
@@ -46,6 +46,7 @@ public class UserController {
             }else {
                 response.sendRedirect("/admin/index.page");
             }
+            return;
         }
         request.setAttribute("error", errorMsg);
         request.setAttribute("username", username);
