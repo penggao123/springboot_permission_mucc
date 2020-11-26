@@ -159,8 +159,8 @@
     <foreach collection="sysDeptList" item="sysDept" separator=";">
       UPDATE
       sys_dept
-      SET LEVEL = #{dept.level}
-      where id = #{dept.id}
+      SET LEVEL = #{sysDept.level}
+      where id = #{sysDept.id}
     </foreach>
 
   </update>

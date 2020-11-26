@@ -47,5 +47,77 @@ public class AclModuleParam {
     @Length(max = 200, message = "备注长度不能超过200个字符")
     private String remark;
 
+    public AclModuleParam(Integer id, String name, Integer parentId, @NotNull(message = "限模块在当前层级下顺序不能为空") Integer seq, @NotNull(message = "必须要指定权限模块的状态") @Min(value = 0, message = "权限模块状态非法") @Max(value = 1, message = "权限模块状态非法") Integer status, String remark) {
+        this.id = id;
+        this.name = name;
+        this.parentId = parentId;
+        this.seq = seq;
+        this.status = status;
+        this.remark = remark;
+    }
 
+
+    public AclModuleParam() {
+    }
+
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
+    }
+
+    public Integer getSeq() {
+        return seq;
+    }
+
+    public void setSeq(Integer seq) {
+        this.seq = seq;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    @Override
+    public String toString() {
+        return "AclModuleParam{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", parentId=" + parentId +
+                ", seq=" + seq +
+                ", status=" + status +
+                ", remark='" + remark + '\'' +
+                '}';
+    }
 }

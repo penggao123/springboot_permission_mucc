@@ -22,7 +22,8 @@
     from sys_acl_module
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from sys_acl_module
     where id = #{id,jdbcType=INTEGER}
   </delete>
@@ -149,4 +150,32 @@
       operate_ip = #{operateIp,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+  <update id="batchUpdateLevel">
+    <foreach collection="beforeList" item="sysAclModule" separator=";">
+      UPDATE
+      sys_acl_module
+      SET LEVEL = #{sysAclModule.level}
+      where id = #{sysAclModule.id}
+    </foreach>
+  </update>
+
+  <!--  查询统一权限模块下是否有相同的名称是否存在-->
+  <select id="countByNameAndParentId" parameterType="map" resultType="int">
+    select count(1)
+    from sys_acl_module
+    where parent_id = #{parentId}
+    and name = #{aclModuleName}
+    <if test="aclModuleId != null">
+      and id != {aclModuleId}
+    </if>
+  </select>
+
+  <select id="getChildAclModuleByLevel" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM  sys_acl_module
+    where LEVEL  LIKE #{afterLevel} || '.%'
+  </select>
 </mapper>

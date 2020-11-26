@@ -112,12 +112,12 @@ public class SysDeptServiceImpl implements SysDeptService {
     }
 
 
-    //当前level更新后需要更新子部门
+    //当前level更新后需要更新子部门(before:修改前的对象 after：修改后的对象)
     public void updateWithChild(SysDept before, SysDept after) {
 
-        //获取之前的level
-        String newLevelPrefix = after.getLevel();
         //获取更新后的level
+        String newLevelPrefix = after.getLevel();
+        //获取之前的level
         String oldLevelPrefix = before.getLevel();
 
         //校验level是否被更新，如果有更新则需更新子部门信息
@@ -129,7 +129,7 @@ public class SysDeptServiceImpl implements SysDeptService {
                     //获取当前level值
                     String level = dept.getLevel();
 
-                    if (level.indexOf(oldLevelPrefix) == 0) {//判断当前level是否是父部门下的子部门
+                    if (level.indexOf(oldLevelPrefix) == 0) {//两个level相等
                         level = newLevelPrefix + level.substring(oldLevelPrefix.length());
                         dept.setLevel(level);
                     }
