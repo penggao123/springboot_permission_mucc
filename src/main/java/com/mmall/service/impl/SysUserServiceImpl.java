@@ -10,6 +10,7 @@ import com.mmall.model.SysUser;
 import com.mmall.param.UserParam;
 import com.mmall.service.SysUserService;
 import com.mmall.utils.BeanValidator;
+import com.mmall.utils.IpUtil;
 import com.mmall.utils.MD5Utils;
 import com.mmall.utils.PasswordUtils;
 import org.apache.commons.codec.digest.Md5Crypt;
@@ -57,7 +58,7 @@ public class SysUserServiceImpl implements SysUserService {
         user.setRemark(param.getRemark());
         user.setStatus(param.getStatus());
         user.setOperator(RequestHolder.getCurrentUser().getUsername());
-        user.setOperateIp("127.0.0.1");
+        user.setOperateIp(IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
         user.setOperateTime(new Date());
         user.setPassword(MD5Utils.encrypt(password));
         return userMapper.insertSelective(user);
@@ -90,7 +91,7 @@ public class SysUserServiceImpl implements SysUserService {
         user.setStatus(param.getStatus());
         user.setId(param.getId());
         user.setOperator(RequestHolder.getCurrentUser().getUsername());
-        user.setOperateIp("127.0.0.1");
+        user.setOperateIp(IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
         user.setOperateTime(new Date());
         return userMapper.updateByPrimaryKeySelective(user);
     }

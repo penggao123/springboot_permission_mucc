@@ -9,6 +9,7 @@ import com.mmall.model.SysDept;
 import com.mmall.param.DeptParam;
 import com.mmall.service.SysDeptService;
 import com.mmall.utils.BeanValidator;
+import com.mmall.utils.IpUtil;
 import com.mmall.utils.LevelUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
@@ -62,7 +63,7 @@ public class SysDeptServiceImpl implements SysDeptService {
         String parentLevel = this.getParentLevel(param.getParentId());//上一级id
         dept.setLevel(LevelUtils.calculateLevel(parentLevel,param.getParentId() ));
         dept.setOperator(RequestHolder.getCurrentUser().getUsername());
-        dept.setOperateIp("127.0.0.1");
+        dept.setOperateIp(IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
         dept.setOperateTime(new Date());
         return deptMapper.insertSelective(dept);
 
@@ -105,7 +106,7 @@ public class SysDeptServiceImpl implements SysDeptService {
         after.setId(param.getId());
         after.setLevel(LevelUtils.calculateLevel(getParentLevel(param.getParentId()), param.getParentId()));
         after.setOperator(RequestHolder.getCurrentUser().getUsername());
-        after.setOperateIp("127.0.0.1");
+        after.setOperateIp(IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
         after.setOperateTime(new Date());
         updateWithChild(before, after);
     }
