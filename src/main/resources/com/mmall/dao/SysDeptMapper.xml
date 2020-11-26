@@ -171,7 +171,7 @@
     WHERE parent_id = #{parentId}
     and name = #{name}
     <if test="id != null">
-        and id = #{id}
+        and id != #{id}
     </if>
   </select>
 </mapper>
