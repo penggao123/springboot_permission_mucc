@@ -2,6 +2,7 @@ package com.mmall.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * sys_acl_module
@@ -201,4 +202,6 @@ public class SysAclModule implements Serializable {
         sb.append("]");
         return sb.toString();
     }
+
+
 }

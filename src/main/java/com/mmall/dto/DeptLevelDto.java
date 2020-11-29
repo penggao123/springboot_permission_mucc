@@ -1,4 +1,4 @@
-package com.mmall;
+package com.mmall.dto;
 
 import com.google.common.collect.Lists;
 import com.mmall.model.SysDept;

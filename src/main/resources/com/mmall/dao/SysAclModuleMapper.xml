@@ -178,4 +178,11 @@
     FROM  sys_acl_module
     where LEVEL  LIKE #{afterLevel} || '.%'
   </select>
+
+  <!--查询所有数据-->
+  <select id="getAllAclModule" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM sys_acl_module
+  </select>
 </mapper>

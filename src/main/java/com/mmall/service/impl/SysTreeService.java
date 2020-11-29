@@ -3,8 +3,11 @@ package com.mmall.service.impl;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
-import com.mmall.DeptLevelDto;
+import com.mmall.dao.SysAclModuleMapper;
+import com.mmall.dto.AclModuleLevelDto;
+import com.mmall.dto.DeptLevelDto;
 import com.mmall.dao.SysDeptMapper;
+import com.mmall.model.SysAclModule;
 import com.mmall.model.SysDept;
 import com.mmall.utils.LevelUtils;
 import org.apache.commons.collections.CollectionUtils;
@@ -29,6 +32,9 @@ public class SysTreeService {
     @Autowired
     private SysDeptMapper deptMapper;
 
+    @Autowired
+    private SysAclModuleMapper aclModuleMapper;
+
     public List<DeptLevelDto> deptTree() {
         //1、查询出所有的数据
         List<SysDept> deptList = deptMapper.getAllDept();
@@ -45,6 +51,7 @@ public class SysTreeService {
 
     /**
      * 从所有的部门信息中，将根部门进行抽取出来，并将根部门按seq字段进行从小到大进行排序
+     *
      * @param deptLevelList
      * @return
      */
@@ -99,13 +106,95 @@ public class SysTreeService {
     }
 
 
-
     public Comparator<DeptLevelDto> deptSeqComparator = new Comparator<DeptLevelDto>() {
         @Override
         public int compare(DeptLevelDto o1, DeptLevelDto o2) {
             return o1.getSeq() - o2.getSeq();
         }
     };
+
+
+    /**
+     * @param
+     * @return java.util.List<com.mmall.dto.AclModuleLevelDto>
+     * @Author gaopeng
+     * @Description //获取权限模块树结构
+     * @Date 13:40 2020/11/29
+     **/
+    public List<AclModuleLevelDto> aclModuleTree() {
+        //1、获取苏搜友权限模块数据
+        List<SysAclModule> aclModuleList = aclModuleMapper.getAllAclModule();
+        //2、定义树形结构集合
+        List<AclModuleLevelDto> dtoList = Lists.newArrayList();
+        //3、遍历查询的结果(遍历进行拷贝dto)
+        for (SysAclModule aclModule : aclModuleList) {
+            AclModuleLevelDto adapt = AclModuleLevelDto.adapt(aclModule);
+            dtoList.add(adapt);
+        }
+        return aclModuleListToTree(dtoList);
+    }
+
+    public List<AclModuleLevelDto> aclModuleListToTree(List<AclModuleLevelDto> dtoList) {
+        //1、判断接收的参数是否为空
+        if (CollectionUtils.isEmpty(dtoList)) {
+            return Lists.newArrayList();
+        }
+        Multimap<String, AclModuleLevelDto> levelAclModuleMap = ArrayListMultimap.create();
+        //2、创建集合 用于存放根节点数据
+        List<AclModuleLevelDto> rootList = Lists.newArrayList();
+        //3、循环遍历所有数据，将所有数据存到MultiMap集合中，key为level，value存放相同level的集合，
+        //4、循环遍历同时判断如果是根节点中的数据存放到root节点集合中
+        for (AclModuleLevelDto aclModule : dtoList) {
+            levelAclModuleMap.put(aclModule.getLevel(), aclModule);
+            if (LevelUtils.ROOT.equals(aclModule.getLevel())) {
+                rootList.add(aclModule);
+            }
+        }
+        Collections.sort(rootList, aclModuSeqComparator);
+        treansformAclModuleTree(rootList, LevelUtils.ROOT, levelAclModuleMap);
+
+        return rootList;
+
+    }
+
+    /**
+     * @Author gaopeng
+     * @Description //权限模块的比较树（从小到大进行排序）
+     * @Date 14:04 2020/11/29
+     * @param
+     * @return
+     **/
+    public Comparator<AclModuleLevelDto> aclModuSeqComparator = new Comparator<AclModuleLevelDto>() {
+        @Override
+        public int compare(AclModuleLevelDto o1, AclModuleLevelDto o2) {
+            return o1.getSeq() - o2.getSeq();
+        }
+    };
+
+
+    /**
+     * @param
+     * @return void
+     * @Author gaopeng
+     * @Description //组合权限模块的树数据
+     * @Date 14:10 2020/11/29
+     **/
+    public void treansformAclModuleTree(List<AclModuleLevelDto> dtoList, String level, Multimap<String, AclModuleLevelDto> levelAclModuleMap) {
+        for (int i = 0; i < dtoList.size(); i++) {
+            AclModuleLevelDto dto = dtoList.get(i);
+            //1、获取当前层级的下一层级的level
+            String nestLevel = LevelUtils.calculateLevel(dto.getLevel(), dto.getId());
+            //2、从map集合中获取相同level的数据集合
+            List<AclModuleLevelDto> aclModuleList = (List<AclModuleLevelDto>) levelAclModuleMap.get(nestLevel);
+            //3、判断是否有对应的权限模块
+            if (CollectionUtils.isNotEmpty(aclModuleList)) {
+                //进行排序
+                Collections.sort(aclModuleList, aclModuSeqComparator);
+                dto.setAclModuleDtoList(aclModuleList);
+                treansformAclModuleTree(aclModuleList, dto.getLevel(), levelAclModuleMap);
+            }
+        }
+    }
 }
 
 

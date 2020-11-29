@@ -25,4 +25,6 @@ public interface SysAclModuleMapper {
     List<SysAclModule> getChildAclModuleByLevel(@Param("afterLevel") String afterLevel);
 
     void batchUpdateLevel(@Param("beforeList") List<SysAclModule> beforeList);
+
+    List<SysAclModule> getAllAclModule();
 }
