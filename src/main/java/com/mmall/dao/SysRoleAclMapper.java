@@ -3,6 +3,8 @@ package com.mmall.dao;
 import com.mmall.model.SysRoleAcl;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface SysRoleAclMapper {
     int deleteByPrimaryKey(Integer id);
@@ -16,4 +18,6 @@ public interface SysRoleAclMapper {
     int updateByPrimaryKeySelective(SysRoleAcl record);
 
     int updateByPrimaryKey(SysRoleAcl record);
+
+    List<Integer> getAclIdListByRoleIdList(List<Integer> userRoleIdList);
 }

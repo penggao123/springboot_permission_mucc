@@ -18,7 +18,8 @@
     from sys_role_user
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from sys_role_user
     where id = #{id,jdbcType=INTEGER}
   </delete>
@@ -103,4 +104,9 @@
       operate_ip = #{operateIp,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="getRoleIdListByUserId" resultType="java.lang.Integer">
+    SELECT id from sys_role_user where  user_id = #{userId}
+
+  </select>
 </mapper>

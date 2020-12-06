@@ -24,6 +24,15 @@ public class AclModuleLevelDto extends SysAclModule{
         return dto;
     }
 
+    /**
+      * @Author gaopeng
+      * @Description //每个权限点模块下有多个权限点
+      * @Date 14:30 2020/12/5
+      * @param
+      * @return
+      **/
+    private List<AclDto>  aclList = Lists.newArrayList();
+
 
     public List<AclModuleLevelDto> getAclModuleDtoList() {
         return aclModuleDtoList;
@@ -31,6 +40,15 @@ public class AclModuleLevelDto extends SysAclModule{
 
     public void setAclModuleDtoList(List<AclModuleLevelDto> aclModuleDtoList) {
         this.aclModuleDtoList = aclModuleDtoList;
+    }
+
+
+    public List<AclDto> getAclList() {
+        return aclList;
+    }
+
+    public void setAclList(List<AclDto> aclList) {
+        this.aclList = aclList;
     }
 
     @Override
