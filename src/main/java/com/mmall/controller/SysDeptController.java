@@ -8,6 +8,7 @@ import com.mmall.service.impl.SysTreeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -83,6 +84,19 @@ public class SysDeptController {
         deptService.update(param);
         return JsonData.success();
     }
+
+    /**
+     * 删除部门
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/update.json")
+    public JsonData delete(@RequestParam("id") int id){
+        deptService.delete(id);
+        return JsonData.success();
+
+    }
+
 
 
     @ResponseBody

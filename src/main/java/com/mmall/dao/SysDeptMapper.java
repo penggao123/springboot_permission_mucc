@@ -30,4 +30,6 @@ public interface SysDeptMapper {
 
     int countByNameAndParentId(@Param("parentId") int  parentId, @Param("name") String name, @Param("id") Integer id);
 
+    int getSonDeptCountById(int deptId);
+
 }

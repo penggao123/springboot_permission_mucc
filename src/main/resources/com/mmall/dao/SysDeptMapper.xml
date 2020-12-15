@@ -174,4 +174,11 @@
         and id != #{id}
     </if>
   </select>
+
+    <select id="getSonDeptCountById" resultType="int" parameterType="int">
+      select count(1) from sys_dept where parent_id = #{deptId}
+    </select>
+
+
+
 </mapper>

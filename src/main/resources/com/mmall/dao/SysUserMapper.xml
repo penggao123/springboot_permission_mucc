@@ -219,4 +219,8 @@
     select <include refid="Base_Column_List"/>
     from  sys_user
   </select>
+
+  <select id="getUserCountById" resultType="int" parameterType="int">
+    select count(1) from sys_user WHERE dept_id = #{deptId}
+  </select>
 </mapper>

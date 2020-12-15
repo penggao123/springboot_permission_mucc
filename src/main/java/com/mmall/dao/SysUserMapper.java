@@ -34,4 +34,6 @@ public interface SysUserMapper {
     List<SysUser> getListByUserIds(@Param("userIdList") List<Integer> userIdList);
 
     List<SysUser> getAll();
+
+    int getUserCountById(int deptId);
 }

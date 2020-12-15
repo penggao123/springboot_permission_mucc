@@ -4,6 +4,7 @@ import com.google.common.base.Preconditions;
 import com.mmall.common.RequestHolder;
 import com.mmall.dao.SysAclMapper;
 import com.mmall.dao.SysDeptMapper;
+import com.mmall.dao.SysUserMapper;
 import com.mmall.exception.ParamException;
 import com.mmall.model.SysDept;
 import com.mmall.param.DeptParam;
@@ -37,6 +38,9 @@ public class SysDeptServiceImpl implements SysDeptService {
 
     @Autowired
     private SysDeptMapper deptMapper;
+
+    @Autowired
+    private SysUserMapper userMapper;
 
 
     /**
@@ -140,5 +144,29 @@ public class SysDeptServiceImpl implements SysDeptService {
         }
         deptMapper.updateByPrimaryKey(after);
 
+    }
+
+
+    /**
+     * 删除部门
+     * @param deptId
+     */
+    @Override
+    public void delete(int deptId) {
+        SysDept dept = deptMapper.selectByPrimaryKey(deptId);
+        Preconditions.checkNotNull(dept, "待删除的部门不存在");//校验原数据是否存在
+        //2、校验是否有子部门
+        int sonDeptCount = deptMapper.getSonDeptCountById(deptId);
+        //校验是部门下是否存在用户
+        int deptUserCount = userMapper.getUserCountById(deptId);
+        if (sonDeptCount > 0) {
+            throw new ParamException("该部门下存在子部门，无法进行删除操作");
+        }
+        if (deptUserCount > 0) {
+            throw new ParamException("该部门下存在用户，无法进行删除操作");
+        }
+
+        //删除部门信息
+        deptMapper.deleteByPrimaryKey(deptId);
     }
 }
