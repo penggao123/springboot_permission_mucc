@@ -13,4 +13,5 @@ public interface SysAclModuleService {
     int update(AclModuleParam moduleParam);
 
 
+    void delete(int id);
 }

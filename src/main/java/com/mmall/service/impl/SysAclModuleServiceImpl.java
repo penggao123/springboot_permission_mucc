@@ -2,11 +2,13 @@ package com.mmall.service.impl;
 
 import com.google.common.base.Preconditions;
 import com.mmall.common.RequestHolder;
+import com.mmall.dao.SysAclMapper;
 import com.mmall.dao.SysAclModuleMapper;
 import com.mmall.exception.ParamException;
 import com.mmall.model.SysAclModule;
 import com.mmall.param.AclModuleParam;
 import com.mmall.service.SysAclModuleService;
+import com.mmall.service.SysAclService;
 import com.mmall.utils.BeanValidator;
 import com.mmall.utils.IpUtil;
 import com.mmall.utils.LevelUtils;
@@ -34,6 +36,9 @@ public class SysAclModuleServiceImpl implements SysAclModuleService {
 
     @Autowired
     private SysAclModuleMapper aclModuleMapper;
+
+    @Autowired
+    private SysAclMapper  aclMapper;
 
     /**
      * 权限模块添加
@@ -148,5 +153,27 @@ public class SysAclModuleServiceImpl implements SysAclModuleService {
     }
 
 
+    /**
+     * 删除权限模块
+     * @param id
+     */
+    @Override
+    public void delete(int aclModuleId) {
+        //1、查询原数据是否存在
+        SysAclModule aclModule = aclModuleMapper.selectByPrimaryKey(aclModuleId);
+        Preconditions.checkNotNull(aclModule, "待删除的权限模块不存在！");
+        //查询模块下是否存在子模块
+        int sonAclModuleCount = aclModuleMapper.getSonAclModule(aclModuleId);
+        //查询模块下是否存在权限点
+        int aclCount = aclMapper.getAclCountByAclModule(aclModuleId);
+        if (sonAclModuleCount > 0) {
+            throw new ParamException("该权限模块下存在子模块");
+        }
+        if (aclCount > 0) {
+            throw new ParamException("该权限模块下存在权限点");
+        }
 
+        aclModuleMapper.deleteByPrimaryKey(aclModuleId);
+
+    }
 }

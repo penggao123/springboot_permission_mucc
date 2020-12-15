@@ -27,4 +27,7 @@ public interface SysAclModuleMapper {
     void batchUpdateLevel(@Param("beforeList") List<SysAclModule> beforeList);
 
     List<SysAclModule> getAllAclModule();
+
+    int getSonAclModule(int aclModuleId);
+
 }

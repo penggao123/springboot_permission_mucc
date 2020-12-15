@@ -215,4 +215,8 @@
       #{id}
     </foreach>
   </select>
+<!--  查询是否存在权限点-->
+    <select id="getAclCountByAclModule" resultType="int" parameterType="int">
+      select count(1) from sys_acl where acl_module_id = #{aclModuleId}
+    </select>
 </mapper>
