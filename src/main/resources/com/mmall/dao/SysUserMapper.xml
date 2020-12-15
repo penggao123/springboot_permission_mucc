@@ -204,4 +204,19 @@
     order by username asc
     limit #{page.offset}, #{page.pageSize}
   </select>
+
+<!--  用户id数组查询用户集合-->
+    <select id="getListByUserIds" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
+        from  sys_user
+        where id in
+        <foreach collection="userIdList" open="(" close=")" separator="," item="userId">
+          #{userId}
+        </foreach>
+    </select>
+<!--  查询所有用户-->
+  <select id="getAll" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from  sys_user
+  </select>
 </mapper>

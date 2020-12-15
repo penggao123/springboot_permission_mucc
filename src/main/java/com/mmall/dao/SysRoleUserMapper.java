@@ -20,4 +20,6 @@ public interface SysRoleUserMapper {
     int updateByPrimaryKey(SysRoleUser record);
 
     List<Integer> getRoleIdListByUserId(int userId);
+
+    List<Integer> getUserIdListByRoleId(int roleId);
 }
