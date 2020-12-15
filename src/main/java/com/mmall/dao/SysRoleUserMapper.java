@@ -2,6 +2,7 @@ package com.mmall.dao;
 
 import com.mmall.model.SysRoleUser;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -22,4 +23,6 @@ public interface SysRoleUserMapper {
     List<Integer> getRoleIdListByUserId(int userId);
 
     List<Integer> getUserIdListByRoleId(int roleId);
+
+    void batchInsertRoleUser(@Param("roleUserList") List<SysRoleUser> roleUserList);
 }

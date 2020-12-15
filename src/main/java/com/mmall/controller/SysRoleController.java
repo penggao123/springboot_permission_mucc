@@ -130,4 +130,19 @@ public class SysRoleController {
         map.put("unselected", unselectedUserList);
         return JsonData.success(map);
     }
+
+
+    /**
+     * 角色与用户之间的数据维护
+     * @param roleId
+     * @param userIds
+     * @return
+     */
+    @RequestMapping("/changeUsers.json")
+    @ResponseBody
+    public JsonData changeUsers(@RequestParam("roleId") int roleId, @RequestParam(value = "userIds", required = false, defaultValue = "") String userIds) {
+        List<Integer> userIdList = StringUtil.splitToListInt(userIds);
+        roleUserService.changeRoleUsers(roleId, userIdList);
+        return JsonData.success();
+    }
 }
