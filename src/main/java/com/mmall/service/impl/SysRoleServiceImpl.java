@@ -3,6 +3,7 @@ package com.mmall.service.impl;
 import com.google.common.base.Preconditions;
 import com.mmall.common.RequestHolder;
 import com.mmall.dao.SysRoleMapper;
+import com.mmall.dao.SysRoleUserMapper;
 import com.mmall.exception.ParamException;
 import com.mmall.model.SysRole;
 import com.mmall.param.RoleParam;
@@ -31,6 +32,9 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     @Autowired
     private SysRoleMapper roleMapper;
+
+    @Autowired
+    private SysRoleUserMapper roleUserMapper;
 
 
     @Override
@@ -87,5 +91,21 @@ public class SysRoleServiceImpl implements SysRoleService {
       **/
     public boolean checkExits(String name, Integer id) {
         return roleMapper.countByName(name, id) > 0;
+    }
+
+
+    /**
+     * 获取用户的所有角色数据
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<SysRole> getRoleListByUserId(int userId) {
+        //获取角色id
+        List<Integer> roleIdList = roleUserMapper.getRoleIdListByUserId(userId);
+        //查询角色信息
+        List<SysRole> roleList = roleMapper.getRoleListByIds(roleIdList);
+
+        return roleList;
     }
 }

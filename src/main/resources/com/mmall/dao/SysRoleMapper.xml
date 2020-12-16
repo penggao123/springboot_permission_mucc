@@ -142,4 +142,14 @@
       AND id != #{id}
     </if>
   </select>
+<!--  角色id查询对象-->
+    <select id="getRoleListByIds" resultType="list" resultMap="BaseResultMap">
+      select <include refid="Base_Column_List" />
+      from sys_role
+      where id in
+      <foreach collection="roleIdList" item="roleId" separator="," open="(" close=")">
+        #{roleId}
+      </foreach>
+
+    </select>
 </mapper>

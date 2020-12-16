@@ -46,6 +46,7 @@ public class SysTreeService {
     @Autowired
     private SysAclMapper aclMapper;
 
+
     public List<DeptLevelDto> deptTree() {
         //1、查询出所有的数据
         List<SysDept> deptList = deptMapper.getAllDept();
@@ -241,11 +242,16 @@ public class SysTreeService {
 
     }
 
+    /**
+     *
+     * @param aclDtoList 权限点集合
+     * @return
+     */
     public List<AclModuleLevelDto> aclListToTree(List<AclDto> aclDtoList) {
         if (CollectionUtils.isEmpty(aclDtoList)) {
             return Lists.newArrayList();
         }
-        List<AclModuleLevelDto> aclModuleLevelList = aclModuleTree();
+        List<AclModuleLevelDto> aclModuleLevelList = aclModuleTree();//所有的权限模块
 
         Multimap<Integer, AclDto> moduleIdAclMap = ArrayListMultimap.create();
         for(AclDto acl : aclDtoList) {
@@ -276,6 +282,28 @@ public class SysTreeService {
             return o1.getSeq() - o2.getSeq();
         }
     };
+
+    /**
+     * 查询当前用户的权限点树结构数据
+     * @param userId
+     * @return
+     */
+    public List<AclModuleLevelDto> userAclTree(int userId) {
+        List<SysAcl> userAclList = coreService.getUserAclList(userId);
+
+        //创建用于存放所有的赋值模型
+        List<AclDto> aclDtoList = Lists.newArrayList();
+        for (SysAcl userACl :userAclList) {
+            AclDto adapt = AclDto.adapt(userACl);
+            adapt.setChecked(true);
+            adapt.setHasAcl(true);
+            aclDtoList.add(adapt);
+        }
+        return aclListToTree(aclDtoList);
+
+    }
+
+
 }
 
 

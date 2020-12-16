@@ -12,12 +12,14 @@ import com.mmall.service.SysDeptService;
 import com.mmall.utils.BeanValidator;
 import com.mmall.utils.IpUtil;
 import com.mmall.utils.LevelUtils;
+import com.mmall.utils.MD5Utils;
 import org.apache.commons.collections.CollectionUtils;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sun.security.provider.MD5;
 
 import java.util.Collections;
 import java.util.Date;
