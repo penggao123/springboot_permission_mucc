@@ -111,7 +111,8 @@
     SELECT acl_id FROM sys_role_acl where
   </select>
 
-  <delete id="deleteByRoleId" parameterType="int">
+
+    <delete id="deleteByRoleId" parameterType="int">
     delete from sys_role_acl where role_id = #{roleId}
   </delete>
 
@@ -125,4 +126,9 @@
         (#{roleAcl.roleId}, #{roleAcl.aclId}, #{roleAcl.operator}, #{roleAcl.operateTime}, #{roleAcl.operateIp})
     </foreach>
   </insert>
+
+<!--权限点查询对应角色id-->
+  <select id="getRoleIdListByAclId" resultType="list" parameterType="int">
+    select role_id from sys_role_acl where acl_id = #{aclId}
+  </select>
 </mapper>

@@ -1,15 +1,20 @@
 package com.mmall.service.impl;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.Lists;
 import com.mmall.common.RequestHolder;
+import com.mmall.dao.SysRoleAclMapper;
 import com.mmall.dao.SysRoleMapper;
 import com.mmall.dao.SysRoleUserMapper;
+import com.mmall.dao.SysUserMapper;
 import com.mmall.exception.ParamException;
 import com.mmall.model.SysRole;
+import com.mmall.model.SysUser;
 import com.mmall.param.RoleParam;
 import com.mmall.service.SysRoleService;
 import com.mmall.utils.BeanValidator;
 import com.mmall.utils.IpUtil;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @ClassName SysRoleServiceImpl
@@ -35,6 +41,14 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     @Autowired
     private SysRoleUserMapper roleUserMapper;
+
+
+    @Autowired
+    private SysRoleAclMapper roleAclMapper;
+
+    @Autowired
+    private SysUserMapper userMapper;
+
 
 
     @Override
@@ -107,5 +121,44 @@ public class SysRoleServiceImpl implements SysRoleService {
         List<SysRole> roleList = roleMapper.getRoleListByIds(roleIdList);
 
         return roleList;
+    }
+
+
+    /**
+     * 权限点查询对应的角色数据
+     * @param aclId
+     * @return
+     */
+    @Override
+    public List<SysRole> getRoleListByAclId(int aclId) {
+        List<Integer> roleIdList = roleAclMapper.getRoleIdListByAclId(aclId);
+        if (CollectionUtils.isEmpty(roleIdList)) {
+            return Lists.<SysRole>newArrayList();
+        }
+        //角色id查询对应的角色对象
+        List<SysRole> roleList = roleMapper.getRoleListByIds(roleIdList);
+        return roleList;
+    }
+
+    /**
+     * 查询对应的
+     * @param roleList
+     * @return
+     */
+    @Override
+    public List<SysUser> getUserListByRoleList(List<SysRole> roleList) {
+        if (CollectionUtils.isEmpty(roleList)) {
+            return Lists.newArrayList();
+        }
+        List<Integer> roleIdList = roleList.stream().map(role -> role.getId()).collect(Collectors.toList());//角色id集合
+        //查询角色对应的用户id
+        List<Integer> userIdList = roleUserMapper.getUserIdListByRoleIdList(roleIdList);
+        if (CollectionUtils.isEmpty(userIdList)) {
+            return Lists.<SysUser>newArrayList();
+        }
+        //用户id查询用户数据
+        List<SysUser> userList = userMapper.getListByUserIds(userIdList);
+
+        return userList;
     }
 }

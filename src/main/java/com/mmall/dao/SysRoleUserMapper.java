@@ -25,4 +25,6 @@ public interface SysRoleUserMapper {
     List<Integer> getUserIdListByRoleId(int roleId);
 
     void batchInsertRoleUser(@Param("roleUserList") List<SysRoleUser> roleUserList);
+
+    List<Integer> getUserIdListByRoleIdList(@Param("roleIdList") List<Integer> roleIdList);
 }

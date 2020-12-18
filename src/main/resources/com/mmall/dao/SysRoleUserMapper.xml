@@ -117,7 +117,8 @@
     WHERE role_id = #{roleId}
   </select>
 
-<!--批量插入数据库-->
+
+    <!--批量插入数据库-->
   <insert id="batchInsertRoleUser" parameterType="map">
         insert into sys_role_user (role_id, user_id,
       operator, operate_time, operate_ip
@@ -128,4 +129,13 @@
       #{roleUser.operator}, #{roleUser.operateTime}, #{roleUser.operateIp})
     </foreach>
   </insert>
+
+<!--角色idlist查询用户id集合-->
+  <select id="getUserIdListByRoleIdList" resultType="map">
+        select user_id from sys_role_user
+        where role_id in
+        <foreach collection="roleIdList" open="(" close=")" separator="," item="roleId">
+           #{roleId}
+        </foreach>
+  </select>
 </mapper>
