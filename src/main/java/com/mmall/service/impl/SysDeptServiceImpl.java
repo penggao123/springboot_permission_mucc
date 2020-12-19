@@ -9,6 +9,7 @@ import com.mmall.exception.ParamException;
 import com.mmall.model.SysDept;
 import com.mmall.param.DeptParam;
 import com.mmall.service.SysDeptService;
+import com.mmall.service.SysLogService;
 import com.mmall.utils.BeanValidator;
 import com.mmall.utils.IpUtil;
 import com.mmall.utils.LevelUtils;
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sun.security.provider.MD5;
 
+import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -43,6 +45,9 @@ public class SysDeptServiceImpl implements SysDeptService {
 
     @Autowired
     private SysUserMapper userMapper;
+
+    @Resource
+    private SysLogService sysLogService;
 
 
     /**
@@ -71,6 +76,7 @@ public class SysDeptServiceImpl implements SysDeptService {
         dept.setOperator(RequestHolder.getCurrentUser().getUsername());
         dept.setOperateIp(IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
         dept.setOperateTime(new Date());
+        sysLogService.saveDeptLog(null, dept);
         return deptMapper.insertSelective(dept);
 
     }
@@ -115,6 +121,7 @@ public class SysDeptServiceImpl implements SysDeptService {
         after.setOperateIp(IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
         after.setOperateTime(new Date());
         updateWithChild(before, after);
+        sysLogService.saveDeptLog(null, after);
     }
 
 

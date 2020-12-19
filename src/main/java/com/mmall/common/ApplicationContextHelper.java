@@ -21,7 +21,7 @@ public class ApplicationContextHelper {
         applicationContext = context;
     }
 
-    public static <T> T popBean(Class<T> clazz) throws Exception{
+    public static <T> T popBean(Class<T> clazz){
         if (applicationContext == null) {
             return null;
         }

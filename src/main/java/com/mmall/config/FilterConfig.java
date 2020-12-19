@@ -22,7 +22,7 @@ public class FilterConfig {
      */
     @Bean
     public FilterRegistrationBean registrationBean() {
-        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(new LoginFilter());
+        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean<>(new LoginFilter());
         filterRegistrationBean.addUrlPatterns("/sys/*","/admin/*");
         return filterRegistrationBean;
     }

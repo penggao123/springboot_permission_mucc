@@ -34,4 +34,6 @@ public interface SysAclMapper {
     List<SysAcl> getByIdList(@Param("idList") List<Integer> idList);
 
     int getAclCountByAclModule(int aclModuleId);
+
+    List<SysAcl> getByUrl(String url);
 }

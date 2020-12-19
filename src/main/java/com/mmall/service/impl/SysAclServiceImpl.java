@@ -10,6 +10,7 @@ import com.mmall.model.SysAcl;
 import com.mmall.model.SysAclModule;
 import com.mmall.param.AclParam;
 import com.mmall.service.SysAclService;
+import com.mmall.service.SysLogService;
 import com.mmall.utils.BeanValidator;
 import com.mmall.utils.IpUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -27,6 +29,11 @@ public class SysAclServiceImpl implements SysAclService{
 
     @Autowired
     SysAclMapper aclMapper;
+
+    @Resource
+    private SysLogService sysLogService;
+
+
     @Override
     public void save(AclParam param) {
         //1、校验参数
@@ -48,6 +55,7 @@ public class SysAclServiceImpl implements SysAclService{
         sysAcl.setCode(generrateCode());
         sysAcl.setOperator(RequestHolder.getCurrentUser().getUsername());
         aclMapper.insertSelective(sysAcl);
+        sysLogService.saveAclLog(null, sysAcl);
     }
 
     @Override
@@ -74,6 +82,8 @@ public class SysAclServiceImpl implements SysAclService{
         newSysAcl.setOperateIp(IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
         newSysAcl.setOperateTime(new Date());
         aclMapper.updateByPrimaryKeySelective(newSysAcl);
+        sysLogService.saveAclLog(before, newSysAcl);
+
     }
 
     /**

@@ -42,7 +42,7 @@
       #{operator,jdbcType=VARCHAR}, #{operateTime,jdbcType=TIMESTAMP}, #{operateIp,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.mmall.model.SysAcl">
+  <insert id="insertSelective" parameterType="com.mmall.model.SysAcl" keyProperty="id" useGeneratedKeys="true">
     insert into sys_acl
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -218,5 +218,12 @@
 <!--  查询是否存在权限点-->
     <select id="getAclCountByAclModule" resultType="int" parameterType="int">
       select count(1) from sys_acl where acl_module_id = #{aclModuleId}
+    </select>
+
+
+    <select id="getByUrl" parameterType="string" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM sys_acl
+        WHERE url = #{url} <!-- url is not null and url != '' and  #{url} REGEXP url-->
     </select>
 </mapper>

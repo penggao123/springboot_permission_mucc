@@ -23,7 +23,11 @@
     delete from sys_role_user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.mmall.model.SysRoleUser">
+  <delete id="deleteByRoleId" parameterType="int">
+    DELETE FROM sys_role_user
+    WHERE role_id = #{roleId}
+  </delete>
+    <insert id="insert" parameterType="com.mmall.model.SysRoleUser">
     insert into sys_role_user (id, role_id, user_id, 
       operator, operate_time, operate_ip
       )
@@ -31,7 +35,7 @@
       #{operator,jdbcType=VARCHAR}, #{operateTime,jdbcType=TIMESTAMP}, #{operateIp,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.mmall.model.SysRoleUser">
+  <insert id="insertSelective" parameterType="com.mmall.model.SysRoleUser"  keyProperty="id" useGeneratedKeys="true">
     insert into sys_role_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -131,7 +135,7 @@
   </insert>
 
 <!--角色idlist查询用户id集合-->
-  <select id="getUserIdListByRoleIdList" resultType="map">
+  <select id="getUserIdListByRoleIdList" resultType="int">
         select user_id from sys_role_user
         where role_id in
         <foreach collection="roleIdList" open="(" close=")" separator="," item="roleId">

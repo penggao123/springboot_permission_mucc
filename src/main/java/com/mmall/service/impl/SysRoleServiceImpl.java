@@ -11,6 +11,7 @@ import com.mmall.exception.ParamException;
 import com.mmall.model.SysRole;
 import com.mmall.model.SysUser;
 import com.mmall.param.RoleParam;
+import com.mmall.service.SysLogService;
 import com.mmall.service.SysRoleService;
 import com.mmall.utils.BeanValidator;
 import com.mmall.utils.IpUtil;
@@ -19,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
@@ -49,6 +51,9 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Autowired
     private SysUserMapper userMapper;
 
+    @Resource
+    private SysLogService sysLogService;
+
 
 
     @Override
@@ -67,6 +72,7 @@ public class SysRoleServiceImpl implements SysRoleService {
         before.setOperateTime(new Date());
         before.setOperator(RequestHolder.getCurrentUser().getUsername());
         roleMapper.insertSelective(before);
+        sysLogService.saveRoleLog(null, before);
 
     }
 
@@ -89,6 +95,7 @@ public class SysRoleServiceImpl implements SysRoleService {
         role.setOperateTime(new Date());
         role.setOperateIp(IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
         roleMapper.updateByPrimaryKeySelective(role);
+        sysLogService.saveRoleLog(after, role);
     }
 
     @Override

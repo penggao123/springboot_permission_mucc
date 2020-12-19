@@ -8,6 +8,7 @@ import com.mmall.dao.SysUserMapper;
 import com.mmall.exception.ParamException;
 import com.mmall.model.SysUser;
 import com.mmall.param.UserParam;
+import com.mmall.service.SysLogService;
 import com.mmall.service.SysUserService;
 import com.mmall.utils.BeanValidator;
 import com.mmall.utils.IpUtil;
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.awt.geom.FlatteningPathIterator;
 import java.util.Date;
 import java.util.List;
@@ -35,6 +37,9 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Autowired
     private SysUserMapper userMapper;
+
+    @Resource
+    private SysLogService sysLogService;
 
     @Override
     public int save(UserParam param) {
@@ -61,6 +66,7 @@ public class SysUserServiceImpl implements SysUserService {
         user.setOperateIp(IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
         user.setOperateTime(new Date());
         user.setPassword(MD5Utils.encrypt(password));
+        sysLogService.saveUserLog(null, user);
         return userMapper.insertSelective(user);
     }
 
@@ -73,8 +79,8 @@ public class SysUserServiceImpl implements SysUserService {
     public int update(UserParam param) {
         BeanValidator.check(param);
         //查询用户信息
-        SysUser user = userMapper.selectByPrimaryKey(param.getId());
-        Preconditions.checkNotNull(user, "待更新的用户不存在");
+        SysUser before = userMapper.selectByPrimaryKey(param.getId());
+        Preconditions.checkNotNull(before, "待更新的用户不存在");
         boolean telephoneExits = this.checkTelephoneExits(param.getTelephone(), param.getId());
         boolean emailExits = this.checkEmailExits(param.getMail(), param.getId());
         if (emailExits) {//存在
@@ -83,17 +89,20 @@ public class SysUserServiceImpl implements SysUserService {
         if (telephoneExits) {//存在
             throw new ParamException("手机号已被占用");
         }
-        user.setDeptId(param.getDeptId());
-        user.setMail(param.getMail());
-        user.setUsername(param.getUsername());
-        user.setTelephone(param.getTelephone());
-        user.setRemark(param.getRemark());
-        user.setStatus(param.getStatus());
-        user.setId(param.getId());
-        user.setOperator(RequestHolder.getCurrentUser().getUsername());
-        user.setOperateIp(IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
-        user.setOperateTime(new Date());
-        return userMapper.updateByPrimaryKeySelective(user);
+        SysUser after = new SysUser();
+        after.setId(before.getId());
+        after.setDeptId(param.getDeptId());
+        after.setMail(param.getMail());
+        after.setUsername(param.getUsername());
+        after.setTelephone(param.getTelephone());
+        after.setRemark(param.getRemark());
+        after.setStatus(param.getStatus());
+        after.setId(param.getId());
+        after.setOperator(RequestHolder.getCurrentUser().getUsername());
+        after.setOperateIp(IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
+        after.setOperateTime(new Date());
+        sysLogService.saveUserLog(before, after);
+        return userMapper.updateByPrimaryKeySelective(after);
     }
 
 

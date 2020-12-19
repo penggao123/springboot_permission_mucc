@@ -9,6 +9,7 @@ import com.mmall.model.SysAclModule;
 import com.mmall.param.AclModuleParam;
 import com.mmall.service.SysAclModuleService;
 import com.mmall.service.SysAclService;
+import com.mmall.service.SysLogService;
 import com.mmall.utils.BeanValidator;
 import com.mmall.utils.IpUtil;
 import com.mmall.utils.LevelUtils;
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -39,6 +41,9 @@ public class SysAclModuleServiceImpl implements SysAclModuleService {
 
     @Autowired
     private SysAclMapper  aclMapper;
+
+    @Resource
+    private SysLogService sysLogService;
 
     /**
      * 权限模块添加
@@ -66,6 +71,8 @@ public class SysAclModuleServiceImpl implements SysAclModuleService {
         String parentLevel = this.getParentLevel(moduleParam.getParentId());//根据上级权限模块id获取上级level
         String level = LevelUtils.calculateLevel(parentLevel, moduleParam.getParentId());//根据上级level和上级id拼装成当前权限模块level
         aclModule.setLevel(level);
+
+        sysLogService.saveAclModuleLog(null, aclModule);
         return aclModuleMapper.insertSelective(aclModule);
     }
 
@@ -95,6 +102,7 @@ public class SysAclModuleServiceImpl implements SysAclModuleService {
         after.setOperator(RequestHolder.getCurrentUser().getUsername());
         after.setOperateTime(new Date());
         after.setOperateIp(IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
+        sysLogService.saveAclModuleLog(before, after);
         return updateWithChild(before, after);
     }
 
