@@ -24,7 +24,7 @@ public class AclDto extends SysAcl{
     //拷贝对象
     public static AclDto adapt(SysAcl acl){
         AclDto aclDto = new AclDto();
-        BeanUtils.copyProperties(acl, acl);
+        BeanUtils.copyProperties(acl, aclDto);
         return aclDto;
     }
 

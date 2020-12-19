@@ -42,7 +42,7 @@ public class SysAclModuleServiceImpl implements SysAclModuleService {
     @Autowired
     private SysAclMapper  aclMapper;
 
-    @Resource
+    @Autowired
     private SysLogService sysLogService;
 
     /**
@@ -71,9 +71,9 @@ public class SysAclModuleServiceImpl implements SysAclModuleService {
         String parentLevel = this.getParentLevel(moduleParam.getParentId());//根据上级权限模块id获取上级level
         String level = LevelUtils.calculateLevel(parentLevel, moduleParam.getParentId());//根据上级level和上级id拼装成当前权限模块level
         aclModule.setLevel(level);
-
+        int insertSelective = aclModuleMapper.insertSelective(aclModule);
         sysLogService.saveAclModuleLog(null, aclModule);
-        return aclModuleMapper.insertSelective(aclModule);
+        return insertSelective;
     }
 
     /**

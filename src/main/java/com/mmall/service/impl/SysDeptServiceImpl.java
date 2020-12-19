@@ -46,7 +46,7 @@ public class SysDeptServiceImpl implements SysDeptService {
     @Autowired
     private SysUserMapper userMapper;
 
-    @Resource
+    @Autowired
     private SysLogService sysLogService;
 
 
@@ -76,8 +76,9 @@ public class SysDeptServiceImpl implements SysDeptService {
         dept.setOperator(RequestHolder.getCurrentUser().getUsername());
         dept.setOperateIp(IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
         dept.setOperateTime(new Date());
+        int insertId = deptMapper.insertSelective(dept);
         sysLogService.saveDeptLog(null, dept);
-        return deptMapper.insertSelective(dept);
+        return insertId;
 
     }
 

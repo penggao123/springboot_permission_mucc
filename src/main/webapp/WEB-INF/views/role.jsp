@@ -3,9 +3,9 @@
 <head>
     <title>角色</title>
     <jsp:include page="../../static/common/backend_common.jsp" />
-    <link rel="stylesheet" href="/ztree/zTreeStyle.css" type="text/css">
+    <link rel="stylesheet" href="../../static/ztree/zTreeStyle.css" type="text/css">
     <link rel="stylesheet" href="../../static/assets/css/bootstrap-duallistbox.min.css" type="text/css">
-    <script type="text/javascript" src="/ztree/jquery.ztree.all.min.js"></script>
+    <script type="text/javascript" src="../../static/ztree/jquery.ztree.all.min.js"></script>
     <script type="text/javascript" src="../../static/assets/js/jquery.bootstrap-duallistbox.min.js"></script>
     <style type="text/css">
         .bootstrap-duallistbox-container .moveall, .bootstrap-duallistbox-container .removeall {

@@ -43,7 +43,7 @@ public class SysRoleUserServiceImpl implements SysRoleUserService {
     @Autowired
     private SysUserMapper userMapper;
 
-    @Resource
+    @Autowired
     private SysLogMapper sysLogMapper;
 
     /**

@@ -30,7 +30,7 @@ public class SysAclServiceImpl implements SysAclService{
     @Autowired
     SysAclMapper aclMapper;
 
-    @Resource
+    @Autowired
     private SysLogService sysLogService;
 
 

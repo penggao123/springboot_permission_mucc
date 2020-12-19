@@ -10,7 +10,6 @@ public interface SysLogService {
 
     PageResult<SysLogWithBLOBs> searchPageList(SearchLogParam param, PageQuery page);
 
-    void saveAclModuleLog(Object o, SysAclModule aclModule);
 
     void saveDeptLog(SysDept before, SysDept after);
 

@@ -5,6 +5,7 @@ import com.mmall.dto.SearchLogDto;
 import com.mmall.model.SysLog;
 import com.mmall.model.SysLogWithBLOBs;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -24,7 +25,7 @@ public interface SysLogMapper {
 
     int updateByPrimaryKey(SysLog record);
 
-    int countBySearchDto(SearchLogDto dto);
+    int countBySearchDto(@Param("dto") SearchLogDto dto);
 
-    List<SysLogWithBLOBs> getPageListBySearchDto(SearchLogDto dto, PageQuery page);
+    List<SysLogWithBLOBs> getPageListBySearchDto(@Param("dto") SearchLogDto dto,@Param("page") PageQuery page);
 }

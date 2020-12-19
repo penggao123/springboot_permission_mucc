@@ -107,8 +107,13 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 <!--角色id集合查询acl集合-->
-  <select id="getAclIdListByRoleIdList" resultType="java.lang.Integer">
+  <select id="getAclIdListByRoleIdList" parameterType="map" resultType="int">
     SELECT acl_id FROM sys_role_acl where
+    role_id IN
+    <foreach collection="userRoleIdList" open="(" close=")" separator="," item="userRoleId">
+        #{userRoleId}
+    </foreach>
+
   </select>
 
 

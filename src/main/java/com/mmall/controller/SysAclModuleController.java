@@ -27,31 +27,34 @@ public class SysAclModuleController {
 
     /**
      * 权限模块页面
+     *
      * @return
      */
     @RequestMapping("acl.page")
-    public ModelAndView page(){
+    public ModelAndView page() {
         return new ModelAndView("acl");
     }
 
     /**
      * 添加权限模块
+     *
      * @return
      */
     @RequestMapping("/save.json")
     @ResponseBody
-    public JsonData saveAclModule(AclModuleParam moduleParam){
+    public JsonData saveAclModule(AclModuleParam moduleParam) {
         aclModuleService.save(moduleParam);
         return JsonData.success();
     }
 
     /**
      * 修改权限模块
+     *
      * @return
      */
     @RequestMapping("/update.json")
     @ResponseBody
-    public JsonData updateAclModule(AclModuleParam moduleParam){
+    public JsonData updateAclModule(AclModuleParam moduleParam) {
         aclModuleService.update(moduleParam);
         return JsonData.success();
     }
@@ -59,8 +62,8 @@ public class SysAclModuleController {
 
     @RequestMapping("/tree.json")
     @ResponseBody
-    public JsonData tree(){
-        List<AclModuleLevelDto> aclModuleLevelDtoList =  treeService.aclModuleTree();
+    public JsonData tree() {
+        List<AclModuleLevelDto> aclModuleLevelDtoList = treeService.aclModuleTree();
         return JsonData.success(aclModuleLevelDtoList);
     }
 
@@ -69,4 +72,5 @@ public class SysAclModuleController {
     public JsonData delete(@RequestParam("id") int id) {
         aclModuleService.delete(id);
         return JsonData.success();
+    }
 }

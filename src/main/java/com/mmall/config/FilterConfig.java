@@ -24,6 +24,7 @@ public class FilterConfig {
     public FilterRegistrationBean registrationBean() {
         FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean<>(new LoginFilter());
         filterRegistrationBean.addUrlPatterns("/sys/*","/admin/*");
+        filterRegistrationBean.setOrder(1);
         return filterRegistrationBean;
     }
 
@@ -38,6 +39,8 @@ public class FilterConfig {
 //        /sys/user/noAuth.page,/login.page
         FilterRegistrationBean<Filter> bean = new FilterRegistrationBean<>(new AclControlFilter());
         bean.addUrlPatterns("/login.page", noAuthUrl);
+        bean.addUrlPatterns("/sys/*","/admin/*");
+        bean.setOrder(2);
         return bean;
     }
 

@@ -38,7 +38,7 @@ public class SysUserServiceImpl implements SysUserService {
     @Autowired
     private SysUserMapper userMapper;
 
-    @Resource
+    @Autowired
     private SysLogService sysLogService;
 
     @Override
@@ -66,8 +66,9 @@ public class SysUserServiceImpl implements SysUserService {
         user.setOperateIp(IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
         user.setOperateTime(new Date());
         user.setPassword(MD5Utils.encrypt(password));
+        int insertSelective = userMapper.insertSelective(user);
         sysLogService.saveUserLog(null, user);
-        return userMapper.insertSelective(user);
+        return insertSelective;
     }
 
     /**

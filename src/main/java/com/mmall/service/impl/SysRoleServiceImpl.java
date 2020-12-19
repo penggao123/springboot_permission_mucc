@@ -51,7 +51,7 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Autowired
     private SysUserMapper userMapper;
 
-    @Resource
+    @Autowired
     private SysLogService sysLogService;
 
 

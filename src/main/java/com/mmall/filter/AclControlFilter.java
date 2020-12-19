@@ -65,7 +65,7 @@ public class AclControlFilter implements Filter {
         HttpServletRequest servletRequest = (HttpServletRequest)request;
         HttpServletResponse servletResponse = (HttpServletResponse)response;
         //获取请求url
-        String contextPath = servletRequest.getContextPath();
+        String contextPath = servletRequest.getServletPath();
         //请求参数
         Map<String, String[]> parameterMap = servletRequest.getParameterMap();
 
@@ -89,7 +89,7 @@ public class AclControlFilter implements Filter {
         SysCoreService sysCoreService = ApplicationContextHelper.popBean(SysCoreService.class);
         //查询当前登录用户的权限url
         boolean exits = sysCoreService.hasUrlAcl(contextPath);
-        if (exits) {//存在该url
+        if (!exits) {//存在该url
             logger.info("{} visit {}, but no login, parameter:{}", JsonMapper.obj2String(sysUser), contextPath, JsonMapper.obj2String(parameterMap));
             noAuth(servletRequest, servletResponse);
             return;

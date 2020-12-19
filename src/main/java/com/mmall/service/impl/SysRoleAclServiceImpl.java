@@ -39,7 +39,7 @@ public class SysRoleAclServiceImpl implements SysRoleAclService {
     @Autowired
     private SysRoleAclMapper roleAclMapper;
 
-    @Resource
+    @Autowired
     private SysLogMapper sysLogMapper;
 
 

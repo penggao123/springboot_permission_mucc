@@ -10,6 +10,7 @@ import com.mmall.dto.SearchLogDto;
 import com.mmall.exception.ParamException;
 import com.mmall.model.*;
 import com.mmall.param.SearchLogParam;
+import com.mmall.service.SysLogService;
 import com.mmall.service.SysRoleAclService;
 import com.mmall.service.SysRoleUserService;
 import com.mmall.utils.BeanValidator;
@@ -17,6 +18,7 @@ import com.mmall.utils.IpUtil;
 import com.mmall.utils.JsonMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.codehaus.jackson.type.TypeReference;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -25,23 +27,23 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class SysLogServiceImpl {
+public class SysLogServiceImpl implements SysLogService{
 
-    @Resource
+    @Autowired
     private SysLogMapper sysLogMapper;
-    @Resource
+    @Autowired
     private SysDeptMapper sysDeptMapper;
-    @Resource
+    @Autowired
     private SysUserMapper sysUserMapper;
-    @Resource
+    @Autowired
     private SysAclModuleMapper sysAclModuleMapper;
-    @Resource
+    @Autowired
     private SysAclMapper sysAclMapper;
-    @Resource
+    @Autowired
     private SysRoleMapper sysRoleMapper;
-    @Resource
+    @Autowired
     private SysRoleAclService sysRoleAclService;
-    @Resource
+    @Autowired
     private SysRoleUserService sysRoleUserService;
 
     public void recover(int id) {
@@ -169,6 +171,20 @@ public class SysLogServiceImpl {
         return new PageResult<SysLogWithBLOBs>();
     }
 
+
+    public void saveAclModuleLog(SysAclModule before, SysAclModule after) {
+        SysLogWithBLOBs sysLog = new SysLogWithBLOBs();
+        sysLog.setType(LogType.TYPE_ACL_MODULE);
+        sysLog.setTargetId(after == null ? before.getId() : after.getId());
+        sysLog.setOldValue(before == null ? "" : JsonMapper.obj2String(before));
+        sysLog.setNewValue(after == null ? "" : JsonMapper.obj2String(after));
+        sysLog.setOperator(RequestHolder.getCurrentUser().getUsername());
+        sysLog.setOperateIp(IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
+        sysLog.setOperateTime(new Date());
+        sysLog.setStatus(1);
+        sysLogMapper.insertSelective(sysLog);
+    }
+
     public void saveDeptLog(SysDept before, SysDept after) {
         SysLogWithBLOBs sysLog = new SysLogWithBLOBs();
         sysLog.setType(LogType.TYPE_DEPT);
@@ -195,18 +211,7 @@ public class SysLogServiceImpl {
         sysLogMapper.insertSelective(sysLog);
     }
 
-    public void saveAclModuleLog(SysAclModule before, SysAclModule after) {
-        SysLogWithBLOBs sysLog = new SysLogWithBLOBs();
-        sysLog.setType(LogType.TYPE_ACL_MODULE);
-        sysLog.setTargetId(after == null ? before.getId() : after.getId());
-        sysLog.setOldValue(before == null ? "" : JsonMapper.obj2String(before));
-        sysLog.setNewValue(after == null ? "" : JsonMapper.obj2String(after));
-        sysLog.setOperator(RequestHolder.getCurrentUser().getUsername());
-        sysLog.setOperateIp(IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
-        sysLog.setOperateTime(new Date());
-        sysLog.setStatus(1);
-        sysLogMapper.insertSelective(sysLog);
-    }
+
 
     public void saveAclLog(SysAcl before, SysAcl after) {
         SysLogWithBLOBs sysLog = new SysLogWithBLOBs();

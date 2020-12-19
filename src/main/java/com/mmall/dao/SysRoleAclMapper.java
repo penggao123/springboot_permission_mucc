@@ -2,6 +2,7 @@ package com.mmall.dao;
 
 import com.mmall.model.SysRoleAcl;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -19,11 +20,11 @@ public interface SysRoleAclMapper {
 
     int updateByPrimaryKey(SysRoleAcl record);
 
-    List<Integer> getAclIdListByRoleIdList(List<Integer> userRoleIdList);
+    List<Integer> getAclIdListByRoleIdList(@Param("userRoleIdList") List<Integer> userRoleIdList);
 
     void deleteByRoleId(int roleId);
 
-    void batchInsert(List<SysRoleAcl> roleAclList);
+    void batchInsert(@Param("roleAclList") List<SysRoleAcl> roleAclList);
 
     List<Integer> getRoleIdListByAclId(int aclId);
 }

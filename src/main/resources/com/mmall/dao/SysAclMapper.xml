@@ -207,7 +207,7 @@
       from sys_acl
     </select>
 
-  <select id="getByIdList" parameterType="map" resultMap="BaseResultMap">
+  <select id="getByIdList" parameterType="list" resultMap="BaseResultMap">
     SELECT <include refid="Base_Column_List" />
     FROM sys_acl
     WHERE id IN

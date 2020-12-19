@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -67,9 +68,10 @@ public class SysCoreServiceImpl implements SysCoreService {
     @Override
     public List<SysAcl> getRoleAclList(int roleId) {
         List<Integer> aclIdList = roleAclMapper.getAclIdListByRoleIdList(Lists.<Integer>newArrayList(roleId));
-
+        System.out.println(aclIdList);
         if (CollectionUtils.isEmpty(aclIdList)) {
-            return Lists.newArrayList();
+            List<SysAcl> list = new ArrayList<>();
+            return list;
         }
         return aclMapper.getByIdList(aclIdList);
     }
